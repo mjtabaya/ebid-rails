@@ -1,18 +1,41 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>User:</strong>
+  <strong>Product Name:</strong>
+  <%= @auction.auction_entries.first.product.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @auction.auction_entries.first.product.description %>
+</p>
+
+<p>
+  <strong>Lowest Allowable Bid:</strong>
+  <%= @auction.auction_entries.first.lowest_allowable_bid %>
+</p>
+
+<p>
+  <strong>Starting Bid Price:</strong>
+  <%= @auction.auction_entries.first.starting_price %>
+</p>
+<p>
+  <strong>Bidding Expiration:</strong>
+  <%= @auction.bidding_expiration_date %>
+</p>
+<p>
+  <strong>Current Lowest Bid:</strong>
+  <%= "finish get lowest bid method" %>
+</p>
+
+<p>
+  <strong>Auctioned By:</strong>
   <%= @auction.user_id %>
 </p>
 
 <p>
   <strong>Date auctioned:</strong>
   <%= @auction.date_auctioned %>
-</p>
-
-<p>
-  <strong>Bidding expiration:</strong>
-  <%= @auction.bidding_expiration %>
 </p>
 
 <p>

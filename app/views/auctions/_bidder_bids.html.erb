@@ -1,36 +1,34 @@
 <table class="table table-dark table-hover" data-pagination="true" data-search="true" data-toggle="table">
   <thead>
     <tr>
-      <th data-sortable="true" data-field="title">Product Name</th>
-      <th data-sortable="true" data-field="title">Description</th>
-      <th data-sortable="true" data-field="title">Lowest Allowable Bid</th>
-      <th data-sortable="true" data-field="title">Starting Bid Price</th>
-      <th data-sortable="true" data-field="title">Bidding Expiration</th>
-      <th data-sortable="true" data-field="title">Current Lowest Bid</th>
-      <th data-sortable="true" data-field="title">Auctioned by</th>
+      <th data-sortable="true" data-field="name">Product Name</th>
+      <th data-sortable="true" data-field="description">Description</th>
+      <th data-sortable="true" data-field="lowest_allowable_bid">Lowest Allowable Bid</th>
+      <th data-sortable="true" data-field="starting_price">Starting Bid Price</th>
+      <th data-sortable="true" data-field="bidding_expiration_date">Bidding Expiration</th>
+      <th data-sortable="true" data-field="current_lowest_bid">Current Lowest Bid</th>
+      <th data-sortable="true" data-field="first_name">Auctioned by</th>
       <th data-sortable="true" data-field="date_published">Date auctioned</th>
       <th class="text-center">Actions</th>
     </tr>
   </thead>
 
   <tbody>
-    <% @auctions.each do |auction| %>
-      <% auction do %>
-        <tr>
-          <td><%= a.auction_entries.first.product.name %></td>
-          <td><%= a.auction_entries.first.product.description %></td>
-          <td><%= a.auction_entries.first.lowest_allowable_bid %></td>
-          <td><%= a.auction_entries.first.starting_price %></td>
-          <td><%= a.auction_entries.first.bidding_expiration_date %></td>
-          <td><%= "AuctionEntry.Bid.first(where: sort by amount)" %></td>
-          <td><%= a.user.first_name %></td>
-          <td><%= a.created_at %></td>
-          <td><%= link_to 'Show', article %>
-              <%= link_to ' | Edit', edit_auction_path(auction) %>
-              <%= link_to ' | Delete', article, method: :delete, data: { confirm: 'Delete this auction?' } %>
-         </td>
-        </tr>
-      <% end %>
+    <% @auctions.each do |a| %>
+      <tr>
+        <td><%= a.auction_entries.first.product.name %></td>
+        <td><%= a.auction_entries.first.product.description %></td>
+        <td><%= a.auction_entries.first.lowest_allowable_bid %></td>
+        <td><%= a.auction_entries.first.starting_price %></td>
+        <td><%= a.bidding_expiration_date %></td>
+        <td><%= "AuctionEntry.Bid.first(where: sort by amount)" %></td>
+        <td><%= a.user.first_name %></td>
+        <td><%= a.created_at %></td>
+        <td><%= link_to 'Show', a %>
+            <%= link_to ' | Edit', edit_auction_path(a) %>
+            <%= link_to ' | Delete', a, method: :delete, data: { confirm: 'Delete this auction?' } %>
+       </td>
+      </tr>
     <% end %>
   </tbody>
 </table>
