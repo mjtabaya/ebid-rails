@@ -1,5 +1,6 @@
 class Auction < ApplicationRecord
-  has_many :bid_entries, :dependent => :destroy
+  has_many :auction_entries, :dependent => :destroy
+  accepts_nested_attributes_for :auction_entries
   belongs_to :user, :dependent => :destroy
   default_scope -> { order(date_auctioned: :desc) }
   validates :user_id, :status, presence: true

@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  lowest_allowable_bid: 9.99
+  starting_price: 9.99
+  expriation_date: 2018-09-18 14:05:30
+  auction: one
+
+two:
+  lowest_allowable_bid: 9.99
+  starting_price: 9.99
+  expriation_date: 2018-09-18 14:05:30
+  auction: two

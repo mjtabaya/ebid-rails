@@ -9,12 +9,22 @@
       </ul>
     </div>
   <% end %>
-  <%= f.text_field :product_name %>
-  <%= f.text_area :product_description %>
+
   <%= f.datetime_select :bidding_expiration %>
-  <%= f.submit "Create Auction" %>
   <div class="field">
     <%= f.label :status %><br />
     <%= f.select :status, options_for_select(Auction.status_options) %>
   </div>
+
+  <%= form.fields_for :auction_entries do |g| %>
+    <%= g.label :lowest_allowable_bid %>
+    <%= g.number_field :lowest_allowable_bid %>
+    <%= g.label :starting_price %>
+    <%= g.number_field :starting_price %>
+    <%= g.label :expiration_date %>
+    <%= g.datetime_select :expiration_date %>
+  <% end %>
+
+  <%= f.submit "Create Auction" %>
+
 <% end %>

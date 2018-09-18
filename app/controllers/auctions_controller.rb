@@ -16,6 +16,7 @@ class AuctionsController < ApplicationController
   # GET /auctions/new
   def new
     @auction = Auction.new
+    @auction.auction_entries.build
   end
 
   # GET /auctions/1/edit
@@ -27,15 +28,21 @@ class AuctionsController < ApplicationController
   def create
     @auction = Auction.new
     @auction.user_id = current_user.id
-    
-
+    @auction.status = auction_params.status
+    @auction.date_auctioned = DateTime.current if @auction.status == 2
     respond_to do |format|
       if @auction.save
-        message = "Auction was successfully created."
-        render :show
+        @bid_entry = @auction.bid_entries.new
+        @bid_entry.name = auction_params.product_name
+        @bid_entry.description = auction_params.product_description
+        if @bid_entry.save
+          message = "Auction was successfully created."
+          render :show, notice: message
+        else
+          render :new
+        end
       else
         render :new
-        format.json { render json: @auction.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -72,6 +79,10 @@ class AuctionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def auction_params
-      params.require(:auction).permit(:user_id, :date_auctioned, :bidding_expiration, :status)
+      params.require(:auction)
+      .permit(:user_id, :date_auctioned, :bidding_expiration, :status,
+              :auction_entries_attributes => [:lowest_allowable_bid,
+                                              :starting_price,
+                                              :expiration_date])
     end
 end
