@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 1
+  date_auctioned: 2018-09-18 13:26:49
+  bidding_expiration: 2018-09-18 13:26:49
+  status: 1
+
+two:
+  user_id: 1
+  date_auctioned: 2018-09-18 13:26:49
+  bidding_expiration: 2018-09-18 13:26:49
+  status: 1
