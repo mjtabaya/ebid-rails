@@ -10,9 +10,20 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # POST /resource
-  # def create
-  #   super
-  # end
+  def create
+    build_resource(sign_up_params)
+    resource.save
+    # yield resource if block_given? <-- commenting out for commit, effects?
+    if resource.persisted?
+      if resource.active_for_authentication?
+        registration_success(resource)
+      else
+        registration_inactive(resource)
+      end
+    else
+      registration_fail(resource)
+    end
+  end
 
   # GET /resource/edit
   # def edit
@@ -37,6 +48,31 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # def cancel
   #   super
   # end
+
+  private
+
+  def registration_success(resource)
+    set_flash_message! :notice, :signed_up
+    sign_up(resource_name, resource)
+    respond_with resource, location: after_sign_up_path_for(resource)
+  end
+
+  def registration_inactive(resource)
+    set_flash_message! :notice, :"signed_up_but_#{resource.inactive_message}"
+    expire_data_after_sign_in!
+    respond_with resource, location: after_inactive_sign_up_path_for(resource)
+  end
+
+  def registration_fail(resource)
+    clean_up_passwords resource
+    flash[:alert] = flash[:alert].to_a.concat resource.errors.full_messages
+    redirect_to new_user_session_path
+  end
+
+  def sign_up_params
+    keys = %i[first_name last_name email password password_confirmation role]
+    params.require(:user).permit(keys)
+  end
 
   # protected
 
