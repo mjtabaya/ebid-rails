@@ -5,6 +5,8 @@ class AuctionsController < ApplicationController
   # GET /auctions.json
   def index
     @auctions = Auction.all
+    @ongoing_auctions = Auction.where(status: "ongoing")
+    @bid = Bid.new
   end
 
   # GET /auctions/1
@@ -49,7 +51,14 @@ class AuctionsController < ApplicationController
   def stop
     @auction = Auction.find(params[:id])
     @auction.stop!
-    message = "Article's published state was successfully changed."
+    message = "Auction was successfully completed."
+    redirect_to auctions_path, notice: message
+  end
+
+  def bid
+    @auction = Auction.find(params[:id])
+    @auction.auction_entries.first.bid!(current_user)
+    message = "You bid on the auction item: #{@auction.auction_entries.first.product.name}."
     redirect_to auctions_path, notice: message
   end
 

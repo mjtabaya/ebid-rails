@@ -3,8 +3,8 @@
     <tr>
       <th data-sortable="true" data-field="name">Product Name</th>
       <th data-sortable="true" data-field="description">Description</th>
-      <th data-sortable="true" data-field="lowest_allowable_bid">Lowest Allowable Bid</th>
       <th data-sortable="true" data-field="starting_price">Starting Bid Price</th>
+      <th data-sortable="true" data-field="lowest_allowable_bid">Lowest Allowable Bid</th>
       <th data-sortable="true" data-field="bidding_expiration_date">Bidding Expiration</th>
       <th data-sortable="true" data-field="current_lowest_bid">Current Lowest Bid</th>
       <th data-sortable="true" data-field="bidders">Bidders</th>
@@ -20,8 +20,8 @@
       <tr>
         <td><%= a.auction_entries.first.product.name %></td>
         <td><%= truncate(a.auction_entries.first.product.description, length: 17) %></td>
-        <td><%= a.auction_entries.first.lowest_allowable_bid %></td>
         <td><%= a.auction_entries.first.starting_price %></td>
+        <td><%= a.auction_entries.first.lowest_allowable_bid %></td>
         <td><%= a.bidding_expiration_date %></td>
         <td><%= a.auction_entries.first.current_lowest_bid %></td>
         <% if a.auction_entries.first.bids.count > 0 %>
@@ -31,8 +31,8 @@
         <% else %>
           <td>0 Bidders</td>
         <% end %>
-        <td><%= a.status %></td>
         <td><%= a.user.first_name %></td>
+        <td><%= a.status.titlecase %></td>
         <td><%= a.created_at %></td>
         <td><%= link_to 'Show', a %>
             <%= link_to ' | Delete', a, method: :delete, data: { confirm: 'Delete this entry?' } %>

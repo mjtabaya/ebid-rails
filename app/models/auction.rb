@@ -4,7 +4,7 @@ class Auction < ApplicationRecord
   belongs_to :user, :dependent => :destroy
   default_scope -> { order(date_auctioned: :desc) }
   validates :user_id, :status, presence: true
-  enum status: %i[pending ongoing completed]
+  enum status: %i[ongoing pending completed]
   validates :status, inclusion: { in: statuses.keys }
 
   def self.status_options

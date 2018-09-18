@@ -18,8 +18,11 @@ Rails.application.routes.draw do
     resources :bid_entries
     member do
       patch :stop
+      patch :bid
     end
   end
+
+  resources :bids
 
   resources :bid_entries do
     resources :products

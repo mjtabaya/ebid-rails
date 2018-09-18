@@ -1,0 +1,17 @@
+<%= bootstrap_form_for(@bid) do |f| %>
+  <% if @bid.errors.any? %>
+    <div id="error_explanation" class="alert alert-danger">
+      <h2><%= pluralize(auction.errors.count, "error") %> found. Please check the following:</h2>
+      <ul>
+        <% @bid.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.number_field :amount, label: "Amount to Bid"%>
+  <%= f.hidden_field :auction_entry_id, :value => params[:id] %>
+  <%= f.submit "Bid" %>
+
+<% end %>

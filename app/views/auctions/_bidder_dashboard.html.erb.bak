@@ -1,0 +1,43 @@
+<table class="table table-dark table-hover" data-pagination="true" data-search="true" data-toggle="table">
+  <thead>
+    <tr>
+      <th data-sortable="true" data-field="name">Product Name</th>
+      <th data-sortable="true" data-field="description">Description</th>
+      <th data-sortable="true" data-field="date_published">Date auctioned</th>
+      <th data-sortable="true" data-field="starting_price">Starting Bid Price</th>
+      <th data-sortable="true" data-field="lowest_allowable_bid">Lowest Allowable Bid</th>
+      <th data-sortable="true" data-field="current_lowest_bid">Current Lowest Bid</th>
+      <th data-sortable="true" data-field="bidding_expiration_date">Bidding Expiration</th>
+      <th class="text-center">Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @ongoing_auctions.each do |a| %>
+      <tr>
+        <td><%= a.auction_entries.first.product.name %></td>
+        <td><%= truncate(a.auction_entries.first.product.description, length: 17) %></td>
+        <td><%= a.created_at %></td>
+        <td><%= a.auction_entries.first.starting_price %></td>
+        <td><%= a.auction_entries.first.lowest_allowable_bid %></td>
+        <td>
+          <% @lowest_bid = a.auction_entries.first.current_lowest_bid %>
+          <%= @lowest_bid.amount %>
+          <% if @lowest_bid.user == current_user %>
+            <%= " (Yours)" %>
+          <% else %>
+            <%= " (Others)" %>
+          <% end %>
+        </td>
+        <td><%= a.bidding_expiration_date %></td>
+        <td><%= link_to 'Show', a %>
+            <%= link_to ' | Bid Minimum'.html_safe,
+            bid_auction_path(a), method: :patch,
+            class: "btn.btn-default.btn-xs",
+            data: { confirm: 'Bid on this product?' } %>
+
+       </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

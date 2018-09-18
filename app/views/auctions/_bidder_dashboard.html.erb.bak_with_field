@@ -44,6 +44,7 @@
                   <%= b.number_field :amount, label: "Bid Specific Amount" %>
                 <% end %>
               <% end %>
+              <%= f.submit "Bid Amount", class: "btn btn-default btn-active"%>
          </td>
         </tr>
       <% end %>
