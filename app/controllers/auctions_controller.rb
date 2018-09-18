@@ -1,5 +1,6 @@
 class AuctionsController < ApplicationController
-  before_action :set_auction, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
+  before_action :set_auction, %i[show edit update destroy]
 
   # GET /auctions
   # GET /auctions.json
@@ -24,14 +25,16 @@ class AuctionsController < ApplicationController
   # POST /auctions
   # POST /auctions.json
   def create
-    @auction = Auction.new(auction_params)
+    @auction = Auction.new
+    @auction.user_id = current_user.id
+    
 
     respond_to do |format|
       if @auction.save
-        format.html { redirect_to @auction, notice: 'Auction was successfully created.' }
-        format.json { render :show, status: :created, location: @auction }
+        message = "Auction was successfully created."
+        render :show
       else
-        format.html { render :new }
+        render :new
         format.json { render json: @auction.errors, status: :unprocessable_entity }
       end
     end

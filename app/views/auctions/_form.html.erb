@@ -1,37 +1,20 @@
-<%= form_with(model: auction, local: true) do |form| %>
-  <% if auction.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(auction.errors.count, "error") %> prohibited this auction from being saved:</h2>
-
+<%= bootstrap_form_with(model: @article, local: true) do |f| %>
+  <% if @article.errors.any? %>
+    <div id="error_explanation" class="alert alert-danger">
+      <h2><%= pluralize(article.errors.count, "error") %> found. Please check the following:</h2>
       <ul>
-      <% auction.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
+        <% @article.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
       </ul>
     </div>
   <% end %>
-
+  <%= f.text_field :product_name %>
+  <%= f.text_area :product_description %>
+  <%= f.datetime_select :bidding_expiration %>
+  <%= f.submit "Create Auction" %>
   <div class="field">
-    <%= form.label :user_id %>
-    <%= form.number_field :user_id %>
-  </div>
-
-  <div class="field">
-    <%= form.label :date_auctioned %>
-    <%= form.datetime_select :date_auctioned %>
-  </div>
-
-  <div class="field">
-    <%= form.label :bidding_expiration %>
-    <%= form.datetime_select :bidding_expiration %>
-  </div>
-
-  <div class="field">
-    <%= form.label :status %>
-    <%= form.number_field :status %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
+    <%= f.label :status %><br />
+    <%= f.select :status, options_for_select(Auction.status_options) %>
   </div>
 <% end %>
