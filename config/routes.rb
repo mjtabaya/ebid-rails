@@ -5,8 +5,7 @@ Rails.application.routes.draw do
   post "bid", to: "bids#create"
 
   devise_for :users, controllers: {
-    sessions: "users/sessions",
-    registrations: "users/registrations"
+    sessions: "users/sessions"
   }
 
   resources :users do

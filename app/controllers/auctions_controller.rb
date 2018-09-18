@@ -1,6 +1,5 @@
 class AuctionsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_auction, %i[show edit update destroy]
 
   # GET /auctions
   # GET /auctions.json
@@ -10,6 +9,7 @@ class AuctionsController < ApplicationController
 
   # GET /auctions/1
   def show
+    @auction = Auction.find(params[:id])
   end
 
   # GET /auctions/new
@@ -20,6 +20,7 @@ class AuctionsController < ApplicationController
 
   # GET /auctions/1/edit
   def edit
+    @auction = Auction.find(params[:id])
   end
 
   # POST /auctions
@@ -36,6 +37,7 @@ class AuctionsController < ApplicationController
 
   # PATCH/PUT /auctions/1
   def update
+    @auction = Auction.find(params[:id])
     if @auction.update(auction_params)
       message = "Auction was successfully updated."
       redirect_to @auction, notice: message
@@ -46,6 +48,7 @@ class AuctionsController < ApplicationController
 
   # DELETE /auctions/1
   def destroy
+    @auction = Auction.find(params[:id])
     @auction.destroy
     message = "Article was successfully destroyed."
     redirect_to auctions_url, notice: message
@@ -54,16 +57,15 @@ class AuctionsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_auction
-      @auction = Auction.find(params[:id])
+      @auctions = Auction.all
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def auction_params
       params.require(:auction)
-      .permit(:user_id, :date_auctioned, :bidding_expiration, :status,
+      .permit(:user_id, :date_auctioned, :bidding_expiration_date, :status,
               :auction_entries_attributes => [:lowest_allowable_bid,
                                               :starting_price,
-                                              :bidding_expiration_date,
                                               :product_attributes => [:name, :description]
                                               ])
     end

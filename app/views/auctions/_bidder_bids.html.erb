@@ -1,24 +1,36 @@
 <table class="table table-dark table-hover" data-pagination="true" data-search="true" data-toggle="table">
   <thead>
     <tr>
-      <th data-sortable="true" data-field="title">Title</th>
-      <th data-sortable="true" data-field="date_published">Date published</th>
-      <th data-sortable="true" data-field="content">Content</th>
-      <th data-sortable="true" data-field="like_count">Likes</th>
-      <th class="text-center"></th>
+      <th data-sortable="true" data-field="title">Product Name</th>
+      <th data-sortable="true" data-field="title">Description</th>
+      <th data-sortable="true" data-field="title">Lowest Allowable Bid</th>
+      <th data-sortable="true" data-field="title">Starting Bid Price</th>
+      <th data-sortable="true" data-field="title">Bidding Expiration</th>
+      <th data-sortable="true" data-field="title">Current Lowest Bid</th>
+      <th data-sortable="true" data-field="title">Auctioned by</th>
+      <th data-sortable="true" data-field="date_published">Date auctioned</th>
+      <th class="text-center">Actions</th>
     </tr>
   </thead>
 
   <tbody>
-    <% @published.each do |article| %>
-      <tr>
-        <td><%= article.title %></td>
-        <td><%= article.date_published %></td>
-        <td><%= truncate(article.content, length: 17) %></td>
-        <td><%= article.likes.count %></td>
-        <td><%= link_to 'Show', article %>
-       </td>
-      </tr>
+    <% @auctions.each do |auction| %>
+      <% auction do %>
+        <tr>
+          <td><%= a.auction_entries.first.product.name %></td>
+          <td><%= a.auction_entries.first.product.description %></td>
+          <td><%= a.auction_entries.first.lowest_allowable_bid %></td>
+          <td><%= a.auction_entries.first.starting_price %></td>
+          <td><%= a.auction_entries.first.bidding_expiration_date %></td>
+          <td><%= "AuctionEntry.Bid.first(where: sort by amount)" %></td>
+          <td><%= a.user.first_name %></td>
+          <td><%= a.created_at %></td>
+          <td><%= link_to 'Show', article %>
+              <%= link_to ' | Edit', edit_auction_path(auction) %>
+              <%= link_to ' | Delete', article, method: :delete, data: { confirm: 'Delete this auction?' } %>
+         </td>
+        </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>

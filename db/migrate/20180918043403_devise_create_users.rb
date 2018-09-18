@@ -48,6 +48,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.2]
       u.last_name = "Nimda"
       u.email = "admin@test.com"
       u.password = "password"
+      u.password_confirmation = "password"
       u.role = 1
     end
   end
