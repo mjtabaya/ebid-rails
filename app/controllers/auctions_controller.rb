@@ -46,6 +46,13 @@ class AuctionsController < ApplicationController
     end
   end
 
+  def stop
+    @auction = Auction.find(params[:id])
+    @auction.stop!
+    message = "Article's published state was successfully changed."
+    redirect_to auctions_path, notice: message
+  end
+
   # DELETE /auctions/1
   def destroy
     @auction = Auction.find(params[:id])

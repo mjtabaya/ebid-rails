@@ -15,6 +15,9 @@ Rails.application.routes.draw do
 
   resources :auctions do
     resources :bid_entries
+    member do
+      patch :stop
+    end
   end
 
   resources :bid_entries do

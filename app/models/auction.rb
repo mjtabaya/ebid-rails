@@ -10,4 +10,8 @@ class Auction < ApplicationRecord
   def self.status_options
     statuses.map { |k, _v| [k.humanize.capitalize, k] }
   end
+
+  def stop!
+    update(status: "completed")
+  end
 end
