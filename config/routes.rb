@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   root "home#index"
   get "auctions", to: "auctions#index"
   post "bid", to: "bids#create"
