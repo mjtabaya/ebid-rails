@@ -1,22 +1,8 @@
-<% provide(:title, "Publisher's Dashboard") %>
+<% provide(:title, "Admin's Dashboard") %>
 
 <div class="row container-fluid">
-  <div class="col-sm-6">
+  <div class="col-sm-12">
     <h2>Published Articles</h2>
-    <%= render 'published_list'%>
-  </div>
-  <div class="col-sm-6">
-    <div class="row create-article-panel">
-      <h2>Create New Article</h2>
-      <%= render 'form', article: @article %>
-      <hr>
-    </div>
-    <div class="row">
-      <h2>Unpublished Articles <button class="btn btn-active pull-right" id="toggle-unpublished-table-display">Hide Articles</button>
-      </h2>
-      <div id="unpublished-list-table">
-        <%= render 'unpublished_list'%>
-      </div>
-    </div>
+    <%= render 'auction_list'%>
   </div>
 </div>
