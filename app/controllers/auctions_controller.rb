@@ -16,7 +16,7 @@ class AuctionsController < ApplicationController
   # GET /auctions/new
   def new
     @auction = Auction.new
-    @auction.auction_entries.build
+    @auction.auction_entries.build.build_product
   end
 
   # GET /auctions/1/edit
@@ -83,6 +83,8 @@ class AuctionsController < ApplicationController
       .permit(:user_id, :date_auctioned, :bidding_expiration, :status,
               :auction_entries_attributes => [:lowest_allowable_bid,
                                               :starting_price,
-                                              :expiration_date])
+                                              :expiration_date,
+                                              :product_attributes => [:name, :description]
+                                              ])
     end
 end

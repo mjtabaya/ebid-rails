@@ -16,13 +16,19 @@
     <%= f.select :status, options_for_select(Auction.status_options) %>
   </div>
 
-  <%= form.fields_for :auction_entries do |g| %>
-    <%= g.label :lowest_allowable_bid %>
-    <%= g.number_field :lowest_allowable_bid %>
-    <%= g.label :starting_price %>
-    <%= g.number_field :starting_price %>
-    <%= g.label :expiration_date %>
-    <%= g.datetime_select :expiration_date %>
+  <%= f.fields_for :auction_entries do |a| %>
+    <%= a.fields_for :product do |b| %>
+      <%= b.label :name %>
+      <%= b.text_field :name %>
+      <%= b.label :description %>
+      <%= b.text_area :description %>
+    <% end %>
+    <%= a.label :lowest_allowable_bid %>
+    <%= a.number_field :lowest_allowable_bid %>
+    <%= a.label :starting_price %>
+    <%= a.number_field :starting_price %>
+    <%= a.label :expiration_date %>
+    <%= a.datetime_select :expiration_date %>
   <% end %>
 
   <%= f.submit "Create Auction" %>
