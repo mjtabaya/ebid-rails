@@ -1,0 +1,24 @@
+<table class="table table-dark table-hover" data-pagination="true" data-search="true" data-toggle="table">
+  <thead>
+    <tr>
+      <th data-sortable="true" data-field="title">Title</th>
+      <th data-sortable="true" data-field="date_published">Date published</th>
+      <th data-sortable="true" data-field="content">Content</th>
+      <th data-sortable="true" data-field="like_count">Likes</th>
+      <th class="text-center"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @published.each do |article| %>
+      <tr>
+        <td><%= article.title %></td>
+        <td><%= article.date_published %></td>
+        <td><%= truncate(article.content, length: 17) %></td>
+        <td><%= article.likes.count %></td>
+        <td><%= link_to 'Show', article %>
+       </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
