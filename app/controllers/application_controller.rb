@@ -1,14 +1,13 @@
 class ApplicationController < ActionController::Base
-  before_action :authenticate_user!
-  before_action :configure_permitted_parameters, if: :devise_controller?
-
   protect_from_forgery with: :exception
+  before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :authenticate_user!
 
   def after_sign_in_path_for(*)
     if current_user.admin?
-      admin_path
+      auctions_path
     elsif current_user.bidder?
-      root_url
+      auctions_path
     else
       new_user_session_path
     end
@@ -30,8 +29,9 @@ class ApplicationController < ActionController::Base
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up) do |user_params|
-      user_params.permit(:first_name, :last_name, :email,
-                         :password, :password_confirmation, { roles: [] })
+      user_params.permit(:first_name,  { roles: [] },
+                         :last_name, :email,
+                         :password, :password_confirmation)
     end
   end
 end

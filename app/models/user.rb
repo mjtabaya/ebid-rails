@@ -23,7 +23,7 @@ class User < ApplicationRecord
   has_many :auctions, :dependent => :destroy
   validates :first_name, :last_name, :email, :password, :password_confirmation, presence: true
   validates :email, uniqueness: true
-  enum role: %i[bidder admin]
+  enum role: %i[admin bidder]
   validates :role, inclusion: { in: roles.keys }
 
   def self.role_options

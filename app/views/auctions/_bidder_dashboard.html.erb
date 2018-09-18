@@ -35,7 +35,6 @@
         <td><%= a.user.first_name %></td>
         <td><%= a.created_at %></td>
         <td><%= link_to 'Show', a %>
-            <%= link_to ' | Delete', a, method: :delete, data: { confirm: 'Delete this entry?' } %>
             <%= link_to ' | &#10005 Stop Bidding'.html_safe,
             stop_auction_path(a), method: :patch,
             class: "btn.btn-default.btn-xs",

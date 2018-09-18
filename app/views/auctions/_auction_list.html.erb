@@ -9,6 +9,7 @@
       <th data-sortable="true" data-field="current_lowest_bid">Current Lowest Bid</th>
       <th data-sortable="true" data-field="bidders">Bidders</th>
       <th data-sortable="true" data-field="first_name">Auctioned by</th>
+      <th data-sortable="true" data-field="status">Status</th>
       <th data-sortable="true" data-field="date_published">Date auctioned</th>
       <th class="text-center">Actions</th>
     </tr>
@@ -18,7 +19,7 @@
     <% @auctions.each do |a| %>
       <tr>
         <td><%= a.auction_entries.first.product.name %></td>
-        <td><%= a.auction_entries.first.product.description %></td>
+        <td><%= truncate(a.auction_entries.first.product.description, length: 17) %></td>
         <td><%= a.auction_entries.first.lowest_allowable_bid %></td>
         <td><%= a.auction_entries.first.starting_price %></td>
         <td><%= a.bidding_expiration_date %></td>
@@ -27,16 +28,18 @@
           <% a.auction_entriest.first.bids.each do  |b|%>
             <td><%= b.user.first_name %></td>
           <% end %>
+        <% else %>
+          <td>0 Bidders</td>
         <% end %>
+        <td><%= a.status %></td>
         <td><%= a.user.first_name %></td>
         <td><%= a.created_at %></td>
         <td><%= link_to 'Show', a %>
-            <%= link_to ' | Stop Bidding', stop_bidding %>
             <%= link_to ' | Delete', a, method: :delete, data: { confirm: 'Delete this entry?' } %>
-            <%= link_to ' | &#10005 Unpublish'.html_safe,
-            complete_auctions(a), method: :patch,
+            <%= link_to ' | &#10005 Stop Bidding'.html_safe,
+            stop_auction_path(a), method: :patch,
             class: "btn.btn-default.btn-xs",
-            data: { confirm: 'Unpublish this article?' } %>
+            data: { confirm: 'Manually stop this auction?' } %>
        </td>
       </tr>
     <% end %>
